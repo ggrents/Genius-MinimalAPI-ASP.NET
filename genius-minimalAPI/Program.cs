@@ -1,3 +1,6 @@
+using genius_minimalAPI.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace genius_minimalAPI
 {
@@ -7,7 +10,7 @@ namespace genius_minimalAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
+            builder.Services.AddDbContext<GeniusDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddAuthorization();
 
             builder.Services.AddEndpointsApiExplorer();

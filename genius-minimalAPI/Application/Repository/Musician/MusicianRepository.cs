@@ -1,6 +1,6 @@
 ﻿using genius_minimalAPI.Domain.Entities;
 using genius_minimalAPI.Infrastructure;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace genius_minimalAPI.Application.Repository
 {
@@ -10,14 +10,22 @@ namespace genius_minimalAPI.Application.Repository
         public MusicianRepository(GeniusDbContext db) {
             _db = db;
         }
-        public async Task<IEnumerable<Musician>> GetAllMusiciansAsync()
+        public async Task<ICollection<Musician>> GetAllMusiciansAsync()
         {
             return await _db.Musicians.ToListAsync();
         }
 
-        public async Task<Musician> GetMusicianByIdAsync(int musicianId)
+        public async Task<Musician?> GetMusicianByIdAsync(int musicianId)
         {
-            return await _db.Musicians.Where(i=>i.Id.Equals(musicianId)).FirstOrDefaultAsync();
+            var _musician = await _db.Musicians.Where(i=>i.Id.Equals(musicianId)).FirstOrDefaultAsync();
+            if (_musician !=null)
+            {
+                return _musician;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

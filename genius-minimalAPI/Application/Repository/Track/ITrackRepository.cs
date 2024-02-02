@@ -4,7 +4,8 @@ namespace genius_minimalAPI.Application.Repository
 {
     public interface ITrackRepository
     {
-        Task<ICollection<Track>> GetTracksByReleaseAsync(int releaseId);
-        Task<Track> GetTrackById(int trackId);
+        Task<IEnumerable<Track>> GetTracksByReleaseAsync(int releaseId);
+        Task<Track> GetTrackByIdAsync(int trackId);
+        Task<IEnumerable<Track>> GetTracksByMusicianAsync(int trackId);
     }
 }

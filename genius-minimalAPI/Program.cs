@@ -1,6 +1,9 @@
+using genius_minimalAPI.Application.Repository;
+using genius_minimalAPI.Application.Repository.ReleasesRep;
 using genius_minimalAPI.Infrastructure;
+using genius_minimalAPI.Presentation.Endpoints;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace genius_minimalAPI
 {
@@ -15,6 +18,10 @@ namespace genius_minimalAPI
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IMusicianRepository, MusicianRepository>();
+            builder.Services.AddScoped<ITrackRepository, TrackRepository>();
+            builder.Services.AddScoped<IReleaseRepository, ReleasesRepository>();
+            builder.Services.AddScoped<ILyricsRepository, LyricsRepository>();
 
             var app = builder.Build();
 
@@ -28,6 +35,7 @@ namespace genius_minimalAPI
 
             app.UseAuthorization();
 
+            app.MapMusicianEndpoints();
             app.Run();
         }
     }

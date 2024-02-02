@@ -13,6 +13,8 @@ namespace genius_minimalAPI.Infrastructure
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Lyrics> Lyrics { get; set; }
         public DbSet<Annotation> Annotations { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Popularity> Popularities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -83,6 +85,30 @@ namespace genius_minimalAPI.Infrastructure
                 o.Property(p => p.FirstSymbol).HasColumnName("first_symbol");
                 o.Property(p => p.LastSymbol).HasColumnName("last_symbol");
 
+                });
+
+            modelBuilder.Entity<Article>(o =>
+            {
+                o.ToTable("articles");
+
+                o.Property(p => p.Id).HasColumnName("id");
+                o.Property(p => p.Content).HasColumnName("content");
+                o.Property(p => p.Title).HasColumnName("title");
+                o.Property(p => p.DateCreated).HasColumnName("date_created");
+                o.Property(p => p.ImagePath).HasColumnName("image_path");
+
+            });
+
+            modelBuilder.Entity<Popularity>(o =>
+            {
+                o.ToTable("popularities");
+
+                o.Property(p => p.Id).HasColumnName("id");
+                o.Property(p => p.ViewCount).HasColumnName("view_count");
+
+                o.HasOne(p => p.Musician) 
+                    .WithOne(m => m.Popularity)
+                    .HasForeignKey<Popularity>(b => b.MusicianId); 
             });
 
         }

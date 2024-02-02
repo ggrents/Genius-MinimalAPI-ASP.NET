@@ -10,5 +10,6 @@
         public DateTime BirthDate { get; set; }
         public string? Info { get; set; }
         public ICollection<Release>? Releases { get; set; }
+        public Popularity? Popularity { get; set; }
     }
 }

@@ -11,9 +11,13 @@ namespace genius_minimalAPI.Application.Repository.ReleasesRep
         {
             _db = db;
         }
-        public async Task<IQueryable<Release>> GetReleasesByMusician(int musicianId)
+        public async Task<ICollection<Release>> GetReleasesByMusicianAsync(int musicianId)
         {
-            return await _db.Releases.Where(r => r.MusicianId ==  musicianId).ToListAsync();
+            return await _db.Releases.Where(r => r.MusicianId == musicianId).ToListAsync();
+        }
+        public async Task<Release> GetReleaseByIdAsync(int releaseId)
+        {
+            return await _db.Releases.Where(i=>i.Equals(releaseId)).FirstOrDefaultAsync();
         }
     }
 }

@@ -4,6 +4,7 @@ namespace genius_minimalAPI.Application.Repository
 {
     public interface IReleaseRepository
     {
-        Task<IQueryable<Release>> GetReleasesByMusician(int musicianId);
+        Task<ICollection<Release>> GetReleasesByMusicianAsync(int musicianId);
+        Task<Release> GetReleaseByIdAsync(int releaseId);
     }
 }

@@ -15,5 +15,9 @@ namespace genius_minimalAPI.Application.Repository
             return await _db.Musicians.ToListAsync();
         }
 
+        public async Task<Musician> GetMusicianByIdAsync(int musicianId)
+        {
+            return await _db.Musicians.Where(i=>i.Id.Equals(musicianId)).FirstOrDefaultAsync();
+        }
     }
 }

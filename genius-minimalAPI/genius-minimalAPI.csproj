@@ -27,8 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Application\Service\" />
-    <Folder Include="Presentation\Endpoints\" />
-    <Folder Include="Presentation\" />
   </ItemGroup>
 
 </Project>

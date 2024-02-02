@@ -5,5 +5,6 @@ namespace genius_minimalAPI.Application.Repository
     public interface IMusicianRepository
     {
         Task<IEnumerable<Musician>> GetAllMusiciansAsync();
+        Task<Musician> GetMusicianByIdAsync(int musicianId);
     }
 }

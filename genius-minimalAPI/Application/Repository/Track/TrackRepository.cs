@@ -1,6 +1,6 @@
 ﻿using genius_minimalAPI.Domain.Entities;
 using genius_minimalAPI.Infrastructure;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace genius_minimalAPI.Application.Repository
 {
@@ -13,9 +13,22 @@ namespace genius_minimalAPI.Application.Repository
             _db = db;
         }
 
-        public async Task<Track> GetTrackByIdAsync(int trackId)
+        public async Task<IEnumerable<Track>> GetAllTracksAsync()
         {
-            return await _db.Tracks.Where(i => i.Id.Equals(trackId)).FirstOrDefaultAsync();
+            return await _db.Tracks.ToListAsync();
+        }
+
+        public async Task<Track?> GetTrackByIdAsync(int trackId)
+        {   
+            var _track  = await _db.Tracks.Where(i => i.Id.Equals(trackId)).FirstOrDefaultAsync();
+            if (_track != null)
+            {
+                return _track;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<IEnumerable<Track>> GetTracksByMusicianAsync(int musicianId)

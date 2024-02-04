@@ -36,6 +36,8 @@ namespace genius_minimalAPI
             app.UseAuthorization();
 
             app.MapMusicianEndpoints();
+            app.MapReleasesEndpoints();
+            app.MapTracksEndpoints();
             app.Run();
         }
     }

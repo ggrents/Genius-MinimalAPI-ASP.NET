@@ -1,17 +1,32 @@
 ﻿using genius_minimalAPI.Domain.Entities;
+using genius_minimalAPI.Infrastructure;
+using System.Data.Entity;
 
 namespace genius_minimalAPI.Application.Repository
 {
     public class ArticleRepository : IArticleRepository
     {
-        public Task<ICollection<Article>> GetAllArticlesAsync()
+        private GeniusDbContext _db;
+        public ArticleRepository(GeniusDbContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
+        }
+        public async Task<ICollection<Article>> GetAllArticlesAsync()
+        {
+            return await _db.Articles.ToListAsync();
         }
 
-        public Task<Article?> GetArticleByIdAsync(int articleId)
+        public async Task<Article?> GetArticleByIdAsync(int articleId)
         {
-            throw new NotImplementedException();
+            var _article = await _db.Articles.Where(i=>i.Id.Equals(articleId)).FirstOrDefaultAsync();
+            if (_article!=null)
+            {
+                return _article;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

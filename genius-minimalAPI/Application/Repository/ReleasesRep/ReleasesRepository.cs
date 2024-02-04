@@ -1,6 +1,6 @@
 ﻿using genius_minimalAPI.Domain.Entities;
 using genius_minimalAPI.Infrastructure;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace genius_minimalAPI.Application.Repository.ReleasesRep
 {
@@ -11,13 +11,25 @@ namespace genius_minimalAPI.Application.Repository.ReleasesRep
         {
             _db = db;
         }
-        public async Task<ICollection<Release>> GetReleasesByMusicianAsync(int musicianId)
+        public async Task<ICollection<Release>> GetAllReleasesAsync()
+        {
+            return await _db.Releases.ToListAsync();
+        }
+        public async Task<IEnumerable<Release>> GetReleasesByMusicianAsync(int musicianId)
         {
             return await _db.Releases.Where(r => r.MusicianId == musicianId).ToListAsync();
         }
-        public async Task<Release> GetReleaseByIdAsync(int releaseId)
+        public async Task<Release?> GetReleaseByIdAsync(int releaseId)
         {
-            return await _db.Releases.Where(i=>i.Equals(releaseId)).FirstOrDefaultAsync();
+            var _release = await _db.Releases.Where(i=>i.Equals(releaseId)).FirstOrDefaultAsync();
+            if (_release != null)
+            {
+                return _release;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace genius_minimalAPI.Presentation.Endpoints
         {
             var group = app.MapGroup("/musicians");
             group.MapGet("", GetAllMusicians);
-            group.MapGet("/musicianId", GetMusicianById);
+            group.MapGet("/{musicianId:int}", GetMusicianById);
         }
 
 
